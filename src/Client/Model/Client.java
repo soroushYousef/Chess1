@@ -49,6 +49,7 @@ public class Client extends Application {
             joinGameOut = new DataOutputStream(joinGameSocket.getOutputStream());
             //help join game socket
             //for updating requets
+            /*
             Client.helpJoinGameSocket = new Socket("localhost",9002);
             helpJoinGameIn = new DataInputStream(helpJoinGameSocket.getInputStream());
             helpJoinGameOut = new DataOutputStream(helpJoinGameSocket.getOutputStream());
@@ -56,7 +57,7 @@ public class Client extends Application {
             Client.helpJoinGameSocket1 = new Socket("localhost",9003);
             helpJoinGameIn1 = new DataInputStream(helpJoinGameSocket1.getInputStream());
             helpJoinGameOut1 = new DataOutputStream(helpJoinGameSocket1.getOutputStream());
-
+             */
 
 
 
@@ -70,12 +71,15 @@ public class Client extends Application {
 
         //launch args
         launch(args);
-
+/*
         try {
             System.out.print(helpJoinGameIn1.readUTF());
         } catch (IOException e) {
             e.printStackTrace();
-        }
+
+       }
+
+ */
 
 
     }

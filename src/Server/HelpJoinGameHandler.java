@@ -34,13 +34,13 @@ public class HelpJoinGameHandler implements Runnable{
                 while (true) {
                     String answer = dis.readUTF();
                     String[] array = answer.split("@");
-
+/*
                     if (answer.contains("accept")) {
 
                         Server.getHandler(array[1], Server.helpJoinGameHandlerMap).dos.writeUTF(answer);
 
                     }
-
+*/
                     //else if(answer.contains("isAccepted")){
                     ///    Server.getHandler(array[1])
                     //  }
