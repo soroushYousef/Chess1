@@ -11,6 +11,8 @@ public class HelpJoinGameHandler implements Runnable{
     DataInputStream dis ;
     DataOutputStream dos;
 
+    private boolean isAccepted = false;
+
     public HelpJoinGameHandler(Socket socket){
         helpJoinGameSocket = socket;
         try {
@@ -27,20 +29,33 @@ public class HelpJoinGameHandler implements Runnable{
 
     @Override
     public void run() {
-        while (true){
+
             try {
-                String answer = dis.readUTF();
-                String [] array = answer.split("@");
+                while (true) {
+                    String answer = dis.readUTF();
+                    String[] array = answer.split("@");
 
-                if(answer.contains("accept")){
-                   Server.getHandler(array[1],Server.helpJoinGameHandlerMap).dos.writeUTF("accept");
+                    if (answer.contains("accept")) {
+
+                        Server.getHandler(array[1], Server.helpJoinGameHandlerMap).dos.writeUTF(answer);
+
+                    }
+
+                    //else if(answer.contains("isAccepted")){
+                    ///    Server.getHandler(array[1])
+                    //  }
+
                 }
-
             }
             catch (IOException e){
 
-            }
+
         }
 
+
     }
+    public boolean getIsAccepted(){
+        return isAccepted;
+    }
+
 }

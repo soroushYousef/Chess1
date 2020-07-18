@@ -9,10 +9,13 @@ import java.net.Socket;
 
 public class JoinGameHandler implements Runnable{
 
-    private DataInputStream dis;
-    private DataOutputStream dos;
+    DataInputStream dis;
+    DataOutputStream dos;
     private Socket joinGameSocket;
     private Request request;
+    //********************************
+    static String userName;
+
 
     public JoinGameHandler(Socket joinGameSocket){
         this.joinGameSocket = joinGameSocket;
@@ -41,15 +44,23 @@ public class JoinGameHandler implements Runnable{
                     dos.writeUTF(onlinePlayersNamesMaker());
                 }
 
+                /*
                 else if (answer.contains("send")) {
                     if(Server.getJoinGameHandler((array[1])) == null){
                     dos.writeUTF("bad");
                     }
                         else {
-                        Server.getHandler(array[1],Server.helpJoinGameHandlerMap).dos.writeUTF("get@" + array[1]);
+                        Server.getHandler(array[1],Server.helpJoinGameHandlerMap).dos.writeUTF("get@" + userName);
                        dos.writeUTF("good");
                       }
                 }
+                */
+
+                  else if (answer.contains("accept")) {
+
+                        Server.getHandler(array[1], Server.joinGameHandlers).dos.writeUTF(answer);
+
+                    }
 
             }
 

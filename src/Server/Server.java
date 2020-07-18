@@ -14,20 +14,25 @@ public class Server {
    public static ServerSocket userServerSocket;
    public static ServerSocket joinGameServerSocket;
    public static ServerSocket helpJoinGameServerSocket;
+   public static ServerSocket helpJoinGameServerSocket1;
 
    public static Map<String, User> users = new ConcurrentHashMap<>();
 
    public static Map<User,JoinGameHandler> gameHandlers = new ConcurrentHashMap<>();
    //find other users to play
    public static Map<UserHandler,JoinGameHandler> joinGameHandlers= new ConcurrentHashMap<>();
-   public static Map<UserHandler,HelpJoinGameHandler> helpJoinGameHandlerMap = new ConcurrentHashMap<>();
+   //
+   //public static Map<UserHandler,HelpJoinGameHandler> helpJoinGameHandlerMap = new ConcurrentHashMap<>();
+   //public static  Map<UserHandler,HelpJoinGameHandler1> helpJoinGameHandler1Map = new ConcurrentHashMap<>();
 
    public static void main(String args[]) {
 
        try {
             userServerSocket = new ServerSocket(9000);
             joinGameServerSocket = new ServerSocket(9001);
-            helpJoinGameServerSocket =new ServerSocket(9002);
+          //  helpJoinGameServerSocket =new ServerSocket(9002);
+           // helpJoinGameServerSocket1 = new ServerSocket(9003);
+
 
        } catch (IOException e) {
            e.printStackTrace();
@@ -47,15 +52,20 @@ public class Server {
                joinGameHandlers.put(userHandler,joinGameHandler);
 
                //help join game handler thread
-               Socket helpJoinGameSocket = helpJoinGameServerSocket.accept();
-               HelpJoinGameHandler helpJoinGameHandler = new HelpJoinGameHandler(helpJoinGameSocket);
-               helpJoinGameHandlerMap.put(userHandler,helpJoinGameHandler);
+              // Socket helpJoinGameSocket = helpJoinGameServerSocket.accept();
+              // HelpJoinGameHandler helpJoinGameHandler = new HelpJoinGameHandler(helpJoinGameSocket);
+             //  helpJoinGameHandlerMap.put(userHandler,helpJoinGameHandler);
 
+
+               //
+               //Socket helpJoinGameSocket1 = helpJoinGameServerSocket1.accept();
+               //HelpJoinGameHandler1 helpJoinGameHandler1 = new HelpJoinGameHandler1(helpJoinGameSocket1);
+               //helpJoinGameHandler1Map.put(userHandler,helpJoinGameHandler1);
 
                //start threads
                new Thread(userHandler).start();
                new Thread(joinGameHandler).start();
-               new Thread(helpJoinGameHandler).start();
+              // new Thread(helpJoinGameHandler).start();
 
            } catch (IOException e) {
                e.printStackTrace();

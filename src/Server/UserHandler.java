@@ -49,6 +49,7 @@ public class UserHandler implements Runnable{
                      User temp = new User(array[1],array[2]);
                      if(Server.users.containsValue(temp)){
                          setUser(temp);
+                         JoinGameHandler.userName = array[1];
                          dos.writeUTF("good");
                      }
                      else {
@@ -69,6 +70,24 @@ public class UserHandler implements Runnable{
 
                 else if(answer.contains("logout")){
                     user = null;
+                }
+
+
+                else if(answer.contains("send")){
+
+                    try {
+                        if (Server.getJoinGameHandler((array[1])) == null) {
+                            dos.writeUTF("bad");
+                        } else {
+                            Server.getHandler(array[1], Server.joinGameHandlers).dos.writeUTF("get@" + user.getUserName());
+                            dos.writeUTF("good");
+                        }
+                    }
+                    catch (IOException e){
+                        e.printStackTrace();
+                }
+
+
                 }
 
 

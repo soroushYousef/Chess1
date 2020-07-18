@@ -10,10 +10,14 @@ import java.net.Socket;
 
 public class Client extends Application {
 
+    public static volatile boolean isRequestAccepted = false;
+    public static String  requestStatue = "c";
+
     static Socket userSocket;
     static Socket gameSocket;
     static Socket joinGameSocket;
     static Socket helpJoinGameSocket;
+    static Socket helpJoinGameSocket1;
     static Socket chatSocktet;
 
     public static DataOutputStream userOut;
@@ -24,6 +28,10 @@ public class Client extends Application {
 
     public static DataOutputStream helpJoinGameOut;
     public static DataInputStream helpJoinGameIn;
+
+    public static DataOutputStream helpJoinGameOut1;
+    public static DataInputStream helpJoinGameIn1;
+
 
 
 
@@ -45,6 +53,13 @@ public class Client extends Application {
             helpJoinGameIn = new DataInputStream(helpJoinGameSocket.getInputStream());
             helpJoinGameOut = new DataOutputStream(helpJoinGameSocket.getOutputStream());
 
+            Client.helpJoinGameSocket1 = new Socket("localhost",9003);
+            helpJoinGameIn1 = new DataInputStream(helpJoinGameSocket1.getInputStream());
+            helpJoinGameOut1 = new DataOutputStream(helpJoinGameSocket1.getOutputStream());
+
+
+
+
 
 
 
@@ -56,7 +71,11 @@ public class Client extends Application {
         //launch args
         launch(args);
 
-
+        try {
+            System.out.print(helpJoinGameIn1.readUTF());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
     }

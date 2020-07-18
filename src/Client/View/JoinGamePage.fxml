@@ -15,7 +15,8 @@
       <Text layoutX="63.0" layoutY="353.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Requests" wrappingWidth="106.63671875" />
       <TextArea fx:id="requests" layoutX="63.0" layoutY="376.0" prefHeight="80.0" prefWidth="200.0" />
       <Button layoutX="388.0" layoutY="376.0" mnemonicParsing="false" onAction="#acceptRequest" prefHeight="25.0" prefWidth="68.0" style="-fx-background-color: #10c422;" text="Accept" textFill="#242824" />
-      <Button layoutX="525.0" layoutY="465.0" mnemonicParsing="false" onAction="#back" prefHeight="25.0" prefWidth="57.0" style="-fx-background-color: #000000;" text="back" textFill="WHITE" />
+      <Button layoutX="331.0" layoutY="466.0" mnemonicParsing="false" onAction="#back" prefHeight="25.0" prefWidth="57.0" style="-fx-background-color: #000000;" text="back" textFill="WHITE" />
       <Button layoutX="388.0" layoutY="416.0" mnemonicParsing="false" onAction="#rejectRequest" prefHeight="25.0" prefWidth="68.0" style="-fx-background-color: #ca2516;" text="Reject" />
+      <Button fx:id="nextButton" layoutX="537.0" layoutY="466.0" mnemonicParsing="false" onAction="#next" prefHeight="25.0" prefWidth="57.0" style="-fx-background-color: #000000;" text="next" textFill="WHITE" visible="false" />
    </children>
 </AnchorPane>

@@ -8,6 +8,7 @@ import java.io.IOException;
 
 public class MainPanelController {
 
+
     public void join(ActionEvent actionEvent) {
         try {
             new PageLoader().load("../View/JoinGamePage.fxml");
