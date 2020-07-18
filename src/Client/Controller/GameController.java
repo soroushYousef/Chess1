@@ -1,8 +1,12 @@
 package Client.Controller;
 
+
+import Common.ChessBelonggings.Models.Cell;
+import Common.ChessBelonggings.Models.Piece;
 import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 
 import java.util.ArrayList;
 
@@ -524,11 +528,34 @@ public class GameController {
         imageViews.add(i64);
     }
 
+    @FXML
+    GridPane gridPane;
 
-
-
+    private boolean isSelected = false;
+    public static ImageView selected;
+    //private Cell[][] cells;
+     ArrayList<Cell>   cells = new ArrayList<>();
 
     public void initialize(){
+    gridPane.getStylesheets().addAll(getClass().getResource("/css/GamePageStyle.css").toExternalForm());
+
+
+    for(ImageView imageView : imageViews){
+        cells.add(new Cell(imageView,null));
+    }
+
+    for(int i = 0;i<16;i++){
+        cells.get(i).setPiece(new Piece(Piece.COLOR.GREEN));
+    }
+
+    for(int i = 56;i<64;i++){
+        cells.get(i).setPiece(new Piece(Piece.COLOR.GOLD));
+    }
+
+
+
+
+
 
 
     }
@@ -541,5 +568,24 @@ public class GameController {
 
 
     public void click(MouseEvent mouseEvent) {
+        if(isSelected){
+            ((ImageView) mouseEvent.getSource()).setImage(selected.getImage());
+            selected.setImage(null);
+            selected = null;
+            isSelected=false;
+        }
+        else {
+            isSelected = true;
+            selected = ((ImageView) mouseEvent.getSource());
+        }
+    }
+
+    public Cell findCell(ImageView imageView){
+        for(Cell cell : cells){
+            if(cell.getImageView().equals(imageView)){
+                return cell;
+            }
+        }
+        return null;
     }
 }
