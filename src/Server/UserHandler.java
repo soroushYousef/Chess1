@@ -90,6 +90,10 @@ public class UserHandler implements Runnable{
 
                 }
 
+                else if(answer.contains("userName")){
+                    dos.writeUTF(user.getUserName());
+                }
+
 
 
 

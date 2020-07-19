@@ -24,6 +24,10 @@ public class JoinGameController {
     @FXML
     Button nextButton;
 
+    String targetUserName;
+    String thisUserName;
+
+
   //volatile AtomicBoolean isRequestAccepted = new AtomicBoolean(false);
     boolean[] booleans = new boolean[1];
 
@@ -33,6 +37,8 @@ public class JoinGameController {
             Client.joinGameOut.writeUTF("details");
             String onlineUsersText = Client.joinGameIn.readUTF();
             onlineUsers.setText(onlineUsersText);
+            Client.userOut.writeUTF("userName");
+            thisUserName = Client.userIn.readUTF();
             //booleans[0] = false;
          //   nextButton.setVisible(true);
             //get requests
@@ -58,6 +64,7 @@ public class JoinGameController {
         else {
             try {
                 Client.userOut.writeUTF("send@"+userName.getText());
+                targetUserName = userName.getText();
                 //new Alert(Alert.AlertType.ERROR, "cc").showAndWait();
                 String temp = Client.userIn.readUTF();
                 //new Alert(Alert.AlertType.ERROR, Client.joinGameIn.readUTF()).showAndWait();
@@ -85,7 +92,11 @@ public class JoinGameController {
         }
         else {
             try {
+                targetUserName = requests.getText().split(" ")[0];
                 Client.joinGameOut.writeUTF("accept@" + requests.getText().split(" ")[0]);
+                //targetUserName = requests.getText().split(" ")[0];
+
+                Client.gameOut.writeUTF("start@" + thisUserName +"@"+targetUserName);
                 new PageLoader().load("../View/GamePage.fxml");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -130,6 +141,7 @@ public class JoinGameController {
                                            // nextButton.setVisible(true);
                                           //  new Alert(Alert.AlertType.ERROR, answer).showAndWait();
                                            // Client.isRequestAccepted = true;
+                                            Client.gameOut.writeUTF("userName@" + thisUserName+"@" + targetUserName);
                                             new PageLoader().load("../View/GamePage.fxml");
                                         } catch (IOException e) {
                                             e.printStackTrace();

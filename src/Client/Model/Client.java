@@ -26,8 +26,8 @@ public class Client extends Application {
     public static DataOutputStream joinGameOut;
     public static DataInputStream joinGameIn;
 
-    public static DataOutputStream helpJoinGameOut;
-    public static DataInputStream helpJoinGameIn;
+    public static DataOutputStream gameOut;
+    public static DataInputStream gameIn;
 
     public static DataOutputStream helpJoinGameOut1;
     public static DataInputStream helpJoinGameIn1;
@@ -49,11 +49,12 @@ public class Client extends Application {
             joinGameOut = new DataOutputStream(joinGameSocket.getOutputStream());
             //help join game socket
             //for updating requets
-            /*
-            Client.helpJoinGameSocket = new Socket("localhost",9002);
-            helpJoinGameIn = new DataInputStream(helpJoinGameSocket.getInputStream());
-            helpJoinGameOut = new DataOutputStream(helpJoinGameSocket.getOutputStream());
 
+            gameSocket = new Socket("localhost",9002);
+            gameIn = new DataInputStream(gameSocket.getInputStream());
+            gameOut = new DataOutputStream(gameSocket.getOutputStream());
+
+            /*
             Client.helpJoinGameSocket1 = new Socket("localhost",9003);
             helpJoinGameIn1 = new DataInputStream(helpJoinGameSocket1.getInputStream());
             helpJoinGameOut1 = new DataOutputStream(helpJoinGameSocket1.getOutputStream());

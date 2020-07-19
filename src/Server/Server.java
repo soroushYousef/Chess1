@@ -1,6 +1,8 @@
 package Server;
 
+import Common.Game;
 import Common.User;
+import Server.Communication.GameHandler;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -13,16 +15,17 @@ public class Server {
 
    public static ServerSocket userServerSocket;
    public static ServerSocket joinGameServerSocket;
-   public static ServerSocket helpJoinGameServerSocket;
+   public static ServerSocket gameServerSocket;
    public static ServerSocket helpJoinGameServerSocket1;
 
    public static Map<String, User> users = new ConcurrentHashMap<>();
+   public static Map<String, Game> games = new ConcurrentHashMap<>();
 
    public static Map<User,JoinGameHandler> gameHandlers = new ConcurrentHashMap<>();
    //find other users to play
    public static Map<UserHandler,JoinGameHandler> joinGameHandlers= new ConcurrentHashMap<>();
    //
-   //public static Map<UserHandler,HelpJoinGameHandler> helpJoinGameHandlerMap = new ConcurrentHashMap<>();
+   public static Map<UserHandler, GameHandler> gameHandlerMap = new ConcurrentHashMap<>();
    //public static  Map<UserHandler,HelpJoinGameHandler1> helpJoinGameHandler1Map = new ConcurrentHashMap<>();
 
    public static void main(String args[]) {
@@ -30,7 +33,7 @@ public class Server {
        try {
             userServerSocket = new ServerSocket(9000);
             joinGameServerSocket = new ServerSocket(9001);
-          //  helpJoinGameServerSocket =new ServerSocket(9002);
+            gameServerSocket =new ServerSocket(9002);
            // helpJoinGameServerSocket1 = new ServerSocket(9003);
 
 
@@ -51,10 +54,10 @@ public class Server {
                JoinGameHandler joinGameHandler = new JoinGameHandler(joinGameSocket);
                joinGameHandlers.put(userHandler,joinGameHandler);
 
-               //help join game handler thread
-              // Socket helpJoinGameSocket = helpJoinGameServerSocket.accept();
-              // HelpJoinGameHandler helpJoinGameHandler = new HelpJoinGameHandler(helpJoinGameSocket);
-             //  helpJoinGameHandlerMap.put(userHandler,helpJoinGameHandler);
+               //game handler thread
+               Socket gameSocket = gameServerSocket.accept();
+               GameHandler gameHandler = new GameHandler(gameSocket);
+                gameHandlerMap.put(userHandler,gameHandler);
 
 
                //
@@ -65,7 +68,7 @@ public class Server {
                //start threads
                new Thread(userHandler).start();
                new Thread(joinGameHandler).start();
-              // new Thread(helpJoinGameHandler).start();
+                new Thread(gameHandler).start();
 
            } catch (IOException e) {
                e.printStackTrace();
@@ -87,6 +90,16 @@ public class Server {
        for(UserHandler userHandler : map.keySet()){
            if(userHandler.getUser().getUserName().equals(userName)){
                return map.get(userHandler);
+           }
+       }
+       return null;
+   }
+
+   public static Game getGame(User user1,User user2){
+       Game temp = new Game(user1,user2);
+       for(Game game : games.values()){
+           if(game.equals(temp)){
+               return game;
            }
        }
        return null;
